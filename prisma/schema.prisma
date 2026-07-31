@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Dept {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  emps      Emp[]
+}
+
+model Emp {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  password  String    @default("123456")
+  name      String
+  gender    Int // 1 男 2 女
+  phone     String    @db.Char(11)
+  job       Int? // 1 班主任 2 讲师 3 学工主管 4 教研主管 5 咨询师
+  salary    Int?
+  image     String?
+  entryDate DateTime? //入职日期
+  deptId    Int // 部门ID
+  dept      Dept      @relation(fields: [deptId], references: [id])
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+
+  //
+  empExperiences EmpExperience[]
+}
+
+model EmpExperience {
+  id        Int      @id @default(autoincrement())
+  empId     Int
+  emp       Emp      @relation(fields: [empId], references: [id])
+  beginDate DateTime
+  endDate   DateTime
+  company   String
+  job       String
+}
