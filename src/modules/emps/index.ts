@@ -1,4 +1,4 @@
-import { t, Elysia } from "elysia";
+import { t, Elysia, status } from "elysia";
 import { EmpModel } from "./model";
 import { empService } from "./service";
 
@@ -27,8 +27,12 @@ emp
   .get(
     "/:id",
     async ({ params: { id } }) => {
-      const res = await empService.findOne(id);
-      return { success: true, data: res };
+      try {
+        const res = await empService.findOne(id);
+        return { success: true, data: res };
+      } catch {
+        return status(404, { success: false, message: "员工不存在" });
+      }
     },
     {
       params: t.Object({

@@ -38,6 +38,8 @@ model Emp {
 
   //
   empExperiences EmpExperience[]
+  // 班主任管理班级
+  managedClazz   Clazz?
 }
 
 model EmpExperience {
@@ -48,4 +50,17 @@ model EmpExperience {
   endDate   DateTime
   company   String
   job       String
+}
+
+model Clazz {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique //班级名称
+  room      String?
+  beginDate DateTime?
+  endDate   DateTime?
+  masterId  Int?      @unique
+  master    Emp?      @relation(fields: [masterId], references: [id])
+  status    Int //1 未开班 2 已开班 3 已结课
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

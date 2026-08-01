@@ -1,9 +1,11 @@
 import { t, Elysia } from "elysia";
 import { dept } from "./modules/depts";
 import { emp } from "./modules/emps";
+import { clazz } from "./modules/clazzs";
 const app = new Elysia()
   .use(dept)
   .use(emp)
+  .use(clazz)
   .get("/", ({ query }) => {
     return query;
   })
