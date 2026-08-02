@@ -9,7 +9,6 @@ export const AuthModel = {
     id: t.Number(),
     username: t.String(),
     name: t.String(),
-    token: t.String(),
   }),
 } as const;
 

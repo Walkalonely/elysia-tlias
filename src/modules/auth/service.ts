@@ -26,7 +26,7 @@ class AuthService {
       return null;
     }
     const token = "jwt";
-    return { username: emp.username, id: emp.id, name: emp.name, token };
+    return { username: emp.username, id: emp.id, name: emp.name };
   }
 }
 
