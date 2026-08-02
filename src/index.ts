@@ -2,10 +2,12 @@ import { t, Elysia } from "elysia";
 import { dept } from "./modules/depts";
 import { emp } from "./modules/emps";
 import { clazz } from "./modules/clazzs";
+import { student } from "./modules/students";
 const app = new Elysia()
   .use(dept)
   .use(emp)
   .use(clazz)
+  .use(student)
   .get("/", ({ query }) => {
     return query;
   })

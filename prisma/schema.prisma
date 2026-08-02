@@ -64,3 +64,16 @@ model Clazz {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
+
+model Student {
+  id      Int      @id @default(autoincrement())
+  name    String
+  no      String   @unique //学号
+  courses Course[]
+}
+
+model Course {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  students Student[]
+}
