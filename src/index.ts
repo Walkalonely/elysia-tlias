@@ -1,27 +1,17 @@
 import { t, Elysia } from "elysia";
-import { dept } from "./modules/depts";
-import { emp } from "./modules/emps";
-import { clazz } from "./modules/clazzs";
-import { student } from "./modules/students";
+import { dept } from "./modules/dept";
+import { emp } from "./modules/emp";
+import { clazz } from "./modules/clazz";
+import { student } from "./modules/student";
+import { auth } from "./modules/auth";
 const app = new Elysia()
   .use(dept)
   .use(emp)
   .use(clazz)
   .use(student)
-  .get("/", ({ query }) => {
-    return query;
-  })
-  .get("/test/:id", ({ params: { id } }) => ({ id, type: typeof id }), {
-    params: t.Object({
-      id: t.Number(),
-    }),
-  })
-  .post("/", ({ body }) => ({ success: true, data: body }), {
-    body: t.Object({
-      name: t.String(),
-      age: t.Number(),
-      email: t.String({ format: "email" }),
-    }),
+  .use(auth)
+  .get("/", ({ redirect }) => {
+    return redirect("https://chatgpt.com");
   })
   .listen(3000);
 
